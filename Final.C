@@ -2,11 +2,11 @@
 // Öğrenci Numarası: 2420161138
 // BTK Akademi Sertifika Bağlantısı: https://www.btkakademi.gov.tr/portal/certificate/validate?certificateId=WJ1SkNaBxA
 
-
 #include <stdio.h>
 
-// Baloncuk Sıralama (Bubble Sort)
-void bubbleSort(int dizi[], int n) {
+// 1. Algoritma: Baloncuk Sıralama (Bubble Sort)
+// Komşu elemanları karşılaştırarak en büyüğü sona atar.
+void baloncukSirala(int dizi[], int n) {
     int i, j, temp;
     for (i = 0; i < n - 1; i++) {
         for (j = 0; j < n - 1 - i; j++) {
@@ -19,47 +19,66 @@ void bubbleSort(int dizi[], int n) {
     }
 }
 
-// İkili Arama (Binary Search)
-int binarySearch(int dizi[], int n, int aranan) {
-    int sol = 0, sag = n - 1, orta;
-
-    while (sol <= sag) {
-        orta = (sol + sag) / 2;
-
-        if (dizi[orta] == aranan)
-            return orta; // bulundu
-        else if (aranan < dizi[orta])
-            sag = orta - 1;
-        else
-            sol = orta + 1;
+// 2. Algoritma: Seçmeli Sıralama (Selection Sort)
+// Her adımda en küçük elemanı bulup başa yerleştirir.
+void secmeliSirala(int dizi[], int n) {
+    int i, j, minIndex, temp;
+    for (i = 0; i < n - 1; i++) {
+        minIndex = i;
+        for (j = i + 1; j < n; j++) {
+            if (dizi[j] < dizi[minIndex]) {
+                minIndex = j;
+            }
+        }
+        if (minIndex != i) {
+            temp = dizi[i];
+            dizi[i] = dizi[minIndex];
+            dizi[minIndex] = temp;
+        }
     }
-    return -1; // bulunamadı
+}
+
+// 3. Algoritma: Araya Ekleme Sıralaması (Insertion Sort)
+// Elemanları tek tek alıp doğru konuma yerleştirir.
+void arayaEklemeSirala(int dizi[], int n) {
+    int i, j, key;
+    for (i = 1; i < n; i++) {
+        key = dizi[i];
+        j = i - 1;
+        while (j >= 0 && dizi[j] > key) {
+            dizi[j + 1] = dizi[j];
+            j--;
+        }
+        dizi[j + 1] = key;
+    }
+}
+
+// İkili Arama (Binary Search)
+// Sıralanmış dizi üzerinde hızlıca arama yapar.
+int ikiliArama(int dizi[], int n, int aranan) {
+    int bas = 0;
+    int son = n - 1;
+    int orta;
+    while (bas <= son) {
+        orta = (bas + son) / 2;
+        if (dizi[orta] == aranan)
+            return orta;
+        else if (aranan > dizi[orta])
+            bas = orta + 1;
+        else
+            son = orta - 1;
+    }
+    return -1;
 }
 
 int main() {
-    int dizi[] = {34, 7, 23, 32, 5, 62};
-    int n = sizeof(dizi) / sizeof(dizi[0]);
-    int aranan, sonuc, i;
+    // Örnek dizi tanımlandı
+    int sayilar[] = {21, 13, 9, 12, 4};
+    int n = sizeof(sayilar) / sizeof(sayilar[0]);
+    int secim, aranan, sonuc;
+    int i;
 
-    // Sıralama
-    bubbleSort(dizi, n);
-
-    printf("Siralanmis Dizi:\n");
-    for (i = 0; i < n; i++) {
-        printf("%d ", dizi[i]);
-    }
-
-    // Kullanıcıdan sayı alma
-    printf("\n\nAranacak sayiyi giriniz: ");
-    scanf("%d", &aranan);
-
-    // İkili arama
-    sonuc = binarySearch(dizi, n, aranan);
-
-    if (sonuc != -1)
-        printf("Sayi dizide bulundu. Indeks: %d\n", sonuc);
-    else
-        printf("Sayi dizide bulunamadi.\n");
-
-    return 0;
-}
+    printf("Hangi siralama algoritmasini kullanmak istersiniz?\n");
+    printf("1. Baloncuk Siralama (Bubble Sort)\n");
+    printf("2. Secmeli Siralama (Selection Sort)\n");
+    printf("3. Araya Ekleme Siralama (Insertion Sort)\
