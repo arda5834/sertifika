@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-// 1. Algoritma: Baloncuk Sıralama (Bubble Sort)
+// Algoritma: Baloncuk Sıralama 
 // Komşu elemanları karşılaştırarak en büyüğü sona atar.
 void baloncukSirala(int dizi[], int n) {
     int i, j, temp;
@@ -19,10 +19,10 @@ void baloncukSirala(int dizi[], int n) {
     }
 }
 
-// 2. Algoritma: Seçmeli Sıralama (Selection Sort)
+// Algoritma: Seçmeli Sıralama 
 // Her adımda en küçük elemanı bulup başa yerleştirir.
 void secmeliSirala(int dizi[], int n) {
-    int i, j, minIndex, temp;
+    int i, j, minlndex, temp;
     for (i = 0; i < n - 1; i++) {
         minIndex = i;
         for (j = i + 1; j < n; j++) {
@@ -30,15 +30,15 @@ void secmeliSirala(int dizi[], int n) {
                 minIndex = j;
             }
         }
-        if (minIndex != i) {
+        if (minlndex != i) {
             temp = dizi[i];
-            dizi[i] = dizi[minIndex];
-            dizi[minIndex] = temp;
+            dizi[i] = dizi[minlndex];
+            dizi[minlndex] = temp;
         }
     }
 }
 
-// 3. Algoritma: Araya Ekleme Sıralaması (Insertion Sort)
+// Algoritma: Araya Ekleme Sıralaması (ınsertion Sort)
 // Elemanları tek tek alıp doğru konuma yerleştirir.
 void arayaEklemeSirala(int dizi[], int n) {
     int i, j, key;
